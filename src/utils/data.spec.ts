@@ -1,10 +1,11 @@
 /*
-	Functions that should have tests from './data.ts'
-	- getRacerData
+ Author: Ntuthuko Mthiyane
+ Date: 06/03/2018
+ Description: This test is responsible for testing the get Racer data function from data.js
 */
 import { getRacerData } from './data';
 
-describe('It checks if data is returned from from array', () => {
+describe('It ctests the get Racer function', () => {
 	/* This will iterate through the returned array and check that the objects 
 		returned all have the required properties and are not null */
 	it('It checks if returned objects all conatin properties', () => {
