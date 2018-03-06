@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test for the entire app renders a snapshot 1`] = `
+<header
+  className="App-header"
+>
+  <img
+    alt="logo"
+    className="App-logo"
+    src=""
+  />
+  <h1
+    className="App-title"
+  >
+    Implementation Race
+  </h1>
+  <div
+    className="ScoreBoard"
+  >
+    <h2
+      className="winner"
+    >
+      Winner: 
+      <span>
+        nmthiyane
+      </span>
+    </h2>
+  </div>
+</header>
+`;
