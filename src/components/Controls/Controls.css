@@ -1,0 +1,31 @@
+div.Controls {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.Controls > button {
+	margin: 5px;
+	padding: 5px 15px;
+	border: 2px solid #014373;
+	color: #014373;
+	transition: background-color .5s, color .3s;
+	cursor: pointer;
+}
+
+.Controls > button:hover {
+	background-color: #014373;
+	color: white;
+}
+
+.Controls > button:disabled {
+	cursor: not-allowed;
+	background-color: #014373;
+	color: white;
+}
+
+.Controls > button:disabled:hover {
+	background-color: #014373;
+	color: white;
+}

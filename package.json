@@ -1,35 +1,42 @@
 {
-  "name": "my-react-ts",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0"
-  },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  },
-  "devDependencies": {
-    "@types/jest": "^22.1.2",
-    "@types/node": "^9.4.6",
-    "@types/react": "^16.0.38",
-    "@types/react-dom": "^16.0.4",
-    "typescript": "^2.7.2"
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). And uses the following repo to enable [Typescript](https://github.com/wmonk/create-react-app-typescript).",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nmthiyane/my-react-ts.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nmthiyane/my-react-ts/issues"
-  },
-  "homepage": "https://github.com/nmthiyane/my-react-ts#readme"
+	"name": "my-react-ts",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"react": "^16.2.0",
+		"react-dom": "^16.2.0",
+		"react-scripts-ts": "2.13.0"
+	},
+	"scripts": {
+		"start": "react-scripts-ts start",
+		"build": "react-scripts-ts build",
+		"test": "jest --watchAll",
+		"eject": "react-scripts-ts eject"
+	},
+	"devDependencies": {
+		"@types/jest": "^22.1.2",
+		"@types/node": "^9.4.6",
+		"@types/react": "^16.0.38",
+		"@types/react-dom": "^16.0.4",
+		"@types/shuffle-array": "0.0.28",
+		"shuffle-array": "^1.0.1",
+		"typescript": "^2.7.2"
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"transform": {
+			"^.+\\.(ts|tsx)$": "<rootDir>/spec/jest-preprocessor.js"
+		},
+		"moduleNameMapper": {
+			"^.+\\.(scss|css|md)$": "identity-obj-proxy",
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/assetsTransformer.js"
+		},
+		"testMatch": [
+			"**/src/**/*.spec.(ts|tsx|js)"
+		]
+	}
 }

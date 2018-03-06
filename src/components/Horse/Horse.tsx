@@ -1,110 +1,71 @@
-/**
- * Author: Ntuthuko Mthiyane
- * Date: 21/02/2018
- * Description: This component is responsible for rendering a single horse
- */
 import * as React from 'react';
 import './Horse.css';
 
+import { Racer } from '../../models';
+import { calculateRacerPosition } from '../../utils';
+
 interface Props {
-    startGame: boolean;
-    addFinishedHorse: Function;
-    avatarUrl: string;
-    username: string;
+	racer: Racer;
+	trackOffset?: Function;
+	raceInProgress?: boolean;
+	raceStartPosition?: boolean;
+	setWinner?: (winner: string) => void;
 }
 
 interface State {
-    progress: number;
-    isFinish?: boolean;
+	racerPosition: number;
 }
 
 export class Horse extends React.Component<Props, State> {
-    timeInterval: NodeJS.Timer;
-    constructor(props: Props) {
-        super(props);
+	constructor(props: Props) {
+		super(props);
 
-        this.state = {
-            progress: 0,
-            isFinish: false
-        };
+		this.state = {
+			racerPosition: 0
+		};
 
-        this.startTimer = this.startTimer.bind(this);
-        this.stopTimer = this.stopTimer.bind(this);
-        this.addToFinish = this.addToFinish.bind(this);
-        this.incrementProgress = this.incrementProgress.bind(this);
-        this.handleRestart = this.handleRestart.bind(this);
-    }
+		this.determineRacerPosition = this.determineRacerPosition.bind(this);
+		this.doRacing = this.doRacing.bind(this);
+	}
 
-    // This function will generate a random increment to each horse progress
-    incrementProgress() {
-        let {progress} = this.state;
-        let {startGame} = this.props;
+	componentWillUpdate(nextProps: Props, nextState: State) {
+		const { racerPosition } = nextState;
+		const { raceInProgress, setWinner, racer, trackOffset, raceStartPosition } = nextProps;
+		if (raceInProgress) {
+			if ((trackOffset && trackOffset()) - 100 > racerPosition) {
+				this.doRacing();
+			}
+			else if (setWinner) {
+				setWinner(racer.login);
+			}
+		}
+		else if (raceStartPosition && racerPosition !== 0) {
+			this.setState({ racerPosition: 0 });
+		}
+	}
 
-        if (progress < 100 && startGame) {
-            let randomInceament = Math.floor(Math.random() * 5) + 1;
-            this.setState({ progress: progress + randomInceament});
-        }
-    }
+	determineRacerPosition() {
+		const { racerPosition } = this.state;
+		this.setState({ racerPosition: calculateRacerPosition(racerPosition) });
+	}
 
-    stopTimer() {
-        let {progress} = this.state;
-        // Once the progress reaches 100%, than stop the time interval
-        if (progress >= 100) {
-            clearInterval(this.timeInterval);
-        }
-    }
+	doRacing() {
+		setTimeout(() => this.determineRacerPosition(), 15);
+	}
 
-    startTimer() {
-        let {progress} = this.state;
-        let {startGame} = this.props;
-
-        // If this is the start of the race, start the interval
-        if (progress === 0 && startGame) {
-            this.timeInterval = setInterval(this.incrementProgress, 300);
-        }
-    }
-
-    // Alert the parent that the horse has completed the race
-    addToFinish(username: string) {
-        this.setState({isFinish: true });
-        this.props.addFinishedHorse(username);
-    }
-
-    // Update the state when the game is restarted
-    handleRestart() {
-        this.setState({ progress: 0 });
-        this.setState({ isFinish: false });
-    }
-
-    render() {
-        let { startGame, username } = this.props;
-        let { progress, isFinish } = this.state;
-
-        // If start is clicked for the first time
-        if (startGame && progress === 0) {
-            this.startTimer();
-
-        } else if (progress >= 100 && !isFinish) { 
-            // Once the horse completes the horse, declare as finish and alert the parent
-            this.stopTimer();
-            this.addToFinish(username);
-        
-        } else if (!startGame && progress !== 0) {
-            // When game is restarted, changed the progress to 0. 
-            this.handleRestart();
-        }
-
-        return (
-            <div className="HorseDiv">
-                <h4 className="Horse Name">
-                    {this.props.username}
-                </h4>
-                <img
-                    src={this.props.avatarUrl}
-                    alt="Horse avatar"
-                />
-                <progress value={this.state.progress} max="100"> {this.props.username}</progress>
-            </div>
-        );
-    }
+	render() {
+		const { racer } = this.props;
+		const { racerPosition } = this.state;
+		return (
+			<div
+				className="Horse"
+				style={{ paddingLeft: `${racerPosition}px` }}
+			>
+				<img
+					height="100px"
+					src={racer.avatar_url}
+				/>
+			</div>
+		);
+	}
 }

@@ -4,46 +4,8 @@ h1, h2 {
 
 .App {
   text-align: center;
-  display: block;
-  background-color: #9bbcd3;
-  height: 1400px;
-}
-
-.App-logo {
-  float: left;
-  animation: App-logo-spin infinite 0.2s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #014373;
-  height: 80px;
-  padding: 20px;
-  color: white;
-}
-
-.Components{
-  text-align: center;
-  display: block;
-  min-width: 1500px;
-  padding: 0px 1% 0px 1%;
-}
-
-.App-title {
-  margin-top: 10px;
-  font-size: 1.5em;
-}
-
-.App-sub-title {
-  font-size: 1.2em;
-  font-weight: lighter;
 }
 
 .App-intro {
   font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(-10deg); }
-  to { transform: rotate(5deg); }
 }

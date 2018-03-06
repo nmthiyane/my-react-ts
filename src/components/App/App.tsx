@@ -1,89 +1,66 @@
-/**
- * Author: Ntuthuko Mthiyane
- * Date: 21/02/2018
- * Description: This is the main component
- */
-
 import * as React from 'react';
-import { Menus, HorseList } from '../';
-import { RandomHorses } from '../../Utilities';
 import './App.css';
-const logo = require('../../images/horse.png');
 
-// interface with the propperties of each horse
-interface HorseDetails {
-    name: string;
-    avatarUrl: string;
-}
-
-interface Props {
-    samplePropProp?: string;
-}
+import { Race, Header, Controls } from '../';
 
 interface State {
-    noOfHorses: number;
-    start: boolean;
-    racingHorses: HorseDetails[];
+	raceInProgress: boolean;
+	raceStartPosition: boolean;
+	lastWinner: string;
 }
 
-export class App extends React.Component<Props, State> {
+export class App extends React.Component<{}, State> {
+	constructor(props: {}) {
+		super(props);
 
-    constructor(props: Props) {
-        super(props);
+		this.state = {
+			raceInProgress: false,
+			raceStartPosition: true,
+			lastWinner: ''
+		};
 
-        this.state = {
-            noOfHorses: 2,
-            start: false,
-            racingHorses: []
-        };
+		this.setWinner = this.setWinner.bind(this);
+		this.startRace = this.startRace.bind(this);
+		this.resetRace = this.resetRace.bind(this);
+	}
 
-        this.populateUsers = this.populateUsers.bind(this);
-        this.startGame = this.startGame.bind(this);
-        this.returnRandomHorses = this.returnRandomHorses.bind(this);
-    }
+	setWinner(lastWinner: string) {
+		this.setState({ lastWinner, raceInProgress: false });
+	}
 
-    // Calls the JS files that generate uses read from the json file
-    returnRandomHorses(horses: number): HorseDetails[] {
-        return RandomHorses(horses);
-    }
+	startRace() {
+		this.setState({ ...this.state, raceInProgress: true, raceStartPosition: false });
+	}
 
-    componentDidMount() {
-        this.setState({ racingHorses: this.returnRandomHorses(2) });
-    }
+	resetRace() {
+		this.setState({ ...this.state, raceStartPosition: true, lastWinner: '' });
+	}
 
-    // update number of horses
-    populateUsers(noOfHorses: number) {
-        if (!this.state.start) {
-            this.setState({ noOfHorses, racingHorses: this.returnRandomHorses(noOfHorses) });
-        }
-    }
+	render() {
+		const { lastWinner, raceInProgress, raceStartPosition } = this.state;
 
-    // Update start game state
-    startGame(start: boolean) {
-        this.setState({ start });
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to Kurtosys Race Track</h1>
-                    <h2 className="App-sub-title">Let the best man win</h2>
-                </header>               
-                <div className="Components">
-                    <Menus
-                        onPopulate={this.populateUsers}
-                        onStart={this.startGame}
-                    />
-                    <HorseList
-                        noOfHorses={this.state.noOfHorses}
-                        allHorses={this.state.racingHorses}
-                        startGame={this.state.start}
-                        onStart={this.startGame}
-                    />
-                </div>
-            </div>
-        );
-    }
+		return (
+			<div className="App" >
+				<Header
+					raceInProgress={raceInProgress}
+					lastWinner={lastWinner}
+				/>
+				<article>
+					<section>
+						<Controls
+							resetRace={this.resetRace}
+							raceStartPosition={raceStartPosition}
+							raceInProgress={raceInProgress}
+							startRace={this.startRace}
+						/>
+						<Race
+							raceInProgress={raceInProgress}
+							raceStartPosition={raceStartPosition}
+							setWinner={this.setWinner}
+						/>
+					</section>
+				</article>
+			</div>
+		);
+	}
 }

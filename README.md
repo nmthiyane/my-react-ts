@@ -18,7 +18,7 @@ my-app-ts/
         index.ts
         App.css
         App.tsx
-        App.test.tsx
+        App.spec.tsx
     images/
       logo.svg
     index.css
@@ -65,5 +65,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
-
-See the section about [deployment](#deployment) for more information.

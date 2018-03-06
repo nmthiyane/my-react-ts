@@ -1,0 +1,8 @@
+.winner, .grads {
+  font-size: 1em;
+  font-weight: lighter;
+}
+
+.winner > span {
+	font-size: 1.2em;
+}

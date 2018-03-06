@@ -1,0 +1,6 @@
+div.Track {
+	text-align: left;
+	padding: 10px 0 6px 0;
+	border-bottom: solid 2px #014373;
+	overflow: hidden;
+}
