@@ -2,7 +2,7 @@ import * as React  from 'react';
 import { Header } from './Header';
 const renderer  = require('react-test-renderer');
 
-describe('Snapshot test for the entire app', () => {
+describe('Snapshot test for the Header component', () => {
 	let lastWinner: string =  'nmthiyane';
 	let raceInProgress: boolean = false;
 	it('renders a snapshot', () => {

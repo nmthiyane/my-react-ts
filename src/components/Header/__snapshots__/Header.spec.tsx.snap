@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test for the entire app renders a snapshot 1`] = `
+exports[`Snapshot test for the Header component renders a snapshot 1`] = `
 <header
   className="App-header"
 >
